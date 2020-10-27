@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessagedetailTable extends Migration
+class CreateNotificationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateMessagedetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_detail', function (Blueprint $table) {
-            $table->id();
+        Schema::create('notification', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateMessagedetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_detail');
+        Schema::dropIfExists('notification');
     }
 }

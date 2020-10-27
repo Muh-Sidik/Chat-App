@@ -19,6 +19,15 @@ class Controller extends BaseController
             'token_type'    => 'bearer',
             'expires_in'    => JWTAuth::factory()->getTTL() * 60,
             'user'          => auth()->user(),
-        ]);
+        ], 200);
+    }
+
+    protected function responseJson($status, $message, $data, $statusCode)
+    {
+        return response()->json([
+            'status'    => $status,
+            'message'   => $message,
+            'data'      => $data,
+        ], $statusCode);
     }
 }

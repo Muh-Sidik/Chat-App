@@ -64,15 +64,13 @@ class AuthController extends Controller
         ]));
 
         if ($user) {
-            return response()->json([
-                'message' => 'User Successfully Registered',
-                'data'    => $user,
-            ]);
+
+            return $this->responseJson('success', 'User Successfully Registered', $user, 200);
+
         } else {
-            return response()->json([
-                'message' => 'User Failed Registered',
-                'data'    => '',
-            ]);
+
+            return $this->responseJson('error', 'User Failed Registered', '', 500);
+
         }
     }
 
