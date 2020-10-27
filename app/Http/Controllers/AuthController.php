@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\JWTGuard;
 
 class AuthController extends Controller
 {
@@ -50,7 +52,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name'         => 'required|string|between:2,100',
             'number_phone' => 'required|numeric|min:11|unique:users',
-            'password'     => 'required|string|min:5'
+            'password'     => 'required|string|min:5|confirmed'
         ]);
 
         if ($validator->fails()) {
@@ -76,7 +78,7 @@ class AuthController extends Controller
 
     public function bioProfile()
     {
-        return response()->json(['profile' =>auth()->user()]);
+        return response()->json(['profile' => Auth::user()]);
     }
 
     public function refresh()
@@ -86,7 +88,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        JWTAuth::logout();
+        Auth::logout();
 
         return response()->json(['message' => 'User successfully signed out']);
     }
