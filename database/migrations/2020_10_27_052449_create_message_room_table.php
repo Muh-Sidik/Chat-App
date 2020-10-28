@@ -17,9 +17,9 @@ class CreateMessageRoomTable extends Migration
         Schema::create('message_room', function (Blueprint $table) {
             $table->id();
             $table->string('name_room');
-            $table->bigInteger('id_room', false, true);
-            $table->foreignId('user_from')->constrained('users');
-            $table->foreignId('user_to')->constrained('users');
+            $table->bigInteger('id_room', false, true)->index();
+            $table->foreignId('id_user_from')->constrained('users');
+            $table->foreignId('id_user_to')->constrained('users');
             $table->timestamps();
         });
     }
