@@ -12,4 +12,15 @@ class MessageRoom extends Model
     protected $table = 'message_room';
 
     protected $guarded = ['id'];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function m_details() {
+
+        return $this->hasMany(MessageDetail::class);
+
+    }
 }

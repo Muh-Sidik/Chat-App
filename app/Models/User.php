@@ -55,4 +55,14 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }
+
+    public function m_rooms()
+    {
+        return $this->hasMany(MessageRoom::class);
+    }
+
+    public function m_details()
+    {
+        return $this->hasMany(MessageDetail::class);
+    }
 }

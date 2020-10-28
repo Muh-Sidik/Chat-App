@@ -16,7 +16,7 @@ class CreateMessageDetailTable extends Migration
         Schema::create('message_detail', function (Blueprint $table) {
             $table->id();
             $table->string('name_room');
-            $table->foreignId('id_room')->constrained('message_room');
+            $table->bigInteger('id_room', false, true)->index();
             $table->foreignId('id_user_from')->constrained('users');
             $table->foreignId('id_user_to')->constrained('users');
             $table->longText('body_chat');
